@@ -1,4 +1,5 @@
 var express = require('express');
+var cors = require('cors')
 var app = express();
 
 var bodyParser = require('body-parser');
@@ -6,6 +7,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+app.use(cors())
 
 const clientRoutes = require('./routers/client.js')
 app.use(clientRoutes);
@@ -39,7 +42,7 @@ var intPostStartUp = function intPostStartUp() {
   exports.intPostStartUp = intPostStartUp;
 
 // set port
-app.listen(3000, function() {
-    console.log('Node app is running on port 3000');
+app.listen(3020, function() {
+    console.log('Node app is running on port 3020');
 });
 module.exports = app;
