@@ -12,24 +12,24 @@ const schema = Joi.object().keys({
 
 })
 
-router.get ('/bank', function(req, res, next) {
-    dbConnection.query('SELECT * FROM Banks', function( error, results, fields) {
+router.get ('/:Client_ID/bank', function(req, res, next) {
+    dbConnection.query('SELECT * FROM Banks WHERE Client_ID = ? ',req.params.Client_ID, function( error, results, fields) {
         if (error) return next (error);
         if (!results || results.length == 0) return res.status(404).send()
         return res.send(results)
     })
 })
 
-router.get ('/bank/:id', function(req, res, next) {
-    let id = req.params.id;
-    dbConnection.query('SELECT * FROM Banks WHERE ID = ?', id , function (error, results, fields){
+router.get ('/:Client_ID/bank/:id', function(req, res, next) {
+   
+    dbConnection.query('SELECT * FROM Banks WHERE Client_ID ? AND ID = ?', [req.params.Client_ID,req.params.id], function (error, results, fields){
         if (error) return next (error);
         if (!results || results.length == 0) return res.status(404).send()
         return res.send(results);
     })
 })
 
-router.post('/bank', function (req, res, next) {
+router.post('/:Client_ID/bank', function (req, res, next) {
     Joi.validation(req.body, schema, (err, results) => {
         if (err) {
             return res.status(400).send();
@@ -43,7 +43,7 @@ router.post('/bank', function (req, res, next) {
     })
 })
 
-router.put('/bank', function(req, res) {
+router.put('/:Client_ID/bank', function(req, res) {
     Joi.validation(req.body, schema, (err, results) => {
         if (err) {
             return res.status(400).send();
@@ -60,7 +60,7 @@ router.put('/bank', function(req, res) {
 
 })
 
-router.delete('/bank/:id', function (req, res, next) {
+router.delete('/:Client_ID/bank/:id', function (req, res, next) {
     dbConnection.query('DELETE FROM Banks WHERE ID = ?', req.params.id, function (error, results, fields) {
         if (error) return next(error);
         if (!results || results.affectedRows ==0) return res.status(404).send();

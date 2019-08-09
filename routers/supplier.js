@@ -19,9 +19,9 @@ const schema = Joi.object().keys({
     IsActive:  Joi.boolean()
 })
 
-router.get('/supplier', function(req, res) {
+router.get('/:Client_ID/supplier', function(req, res) {
 
-    dbConnection.query('SELECT * FROM Suppliers Where IsActive = true', function(error, results, fields) {
+    dbConnection.query('SELECT * FROM Suppliers Where Client_ID = ? AND IsActive = true',req.params.Client_ID, function(error, results, fields) {
         if (error) {
             console.error(error)
             res.status(500).send(error);
@@ -39,7 +39,7 @@ router.get('/supplier', function(req, res) {
 
 });
 
-router.get('/supplier/:id', function(req, res) {
+router.get('/:Client_ID/supplier/:id', function(req, res) {
 
     let supplier_id = req.params.id;
 
@@ -67,7 +67,7 @@ router.get('/supplier/:id', function(req, res) {
 
 });
 
-router.post('/supplier', function(req, res) {
+router.post('/:Client_ID/supplier', function(req, res) {
     let supplier = req.body;
    
     if (!supplier) {
@@ -110,7 +110,7 @@ router.post('/supplier', function(req, res) {
     });
 });
 
-router.put('/supplier', function(req, res) {
+router.put('/:Client_ID/supplier', function(req, res) {
 
     let supplier = req.body;
     let ParentID = supplier.ID;
@@ -190,7 +190,7 @@ router.put('/supplier', function(req, res) {
     /* End transaction */
 });
 
-router.delete('/supplier/:id', function(req, res) {
+router.delete('/:Client_ID/supplier/:id', function(req, res) {
 
     let supplier_id = req.params.id;
 
