@@ -105,9 +105,6 @@ router.get('/:Client_ID/supplier/:id', function (req, res) {
 });
 
 router.post('/:Client_ID/supplier', function (req, res) {
-    console.error('------------------------');
-    console.error(req.body);
-    console.error('------------------------');
     if (!req.body) {
         res.status(400).send();
         res.end();
