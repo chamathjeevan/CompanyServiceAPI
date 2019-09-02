@@ -19,8 +19,8 @@ app.use(entityRoutes);
 const companyRoutes = require('./routers/company.js')
 app.use(companyRoutes);
 
-const incotermRoutes = require('./routers/incoterm.js')
-app.use(incotermRoutes);
+//const incotermRoutes = require('./routers/incoterm.js')
+//app.use(incotermRoutes);
 
 const bankRoutes = require('./routers/bank.js')
 app.use(bankRoutes);
@@ -41,6 +41,10 @@ var intPostStartUp = function intPostStartUp() {
   
   exports.intPostStartUp = intPostStartUp;
 
+  app.get('/', function (req, res) {
+    res.send('hello world')
+  })
+  
 // set port
 app.listen(3020, function() {
     console.log('Node app is running on port 3020');
